@@ -1,0 +1,87 @@
+package me.reimnop.fabricseats.block;
+
+import me.reimnop.fabricseats.FabricSeats;
+import me.reimnop.fabricseats.blockentity.SeatBlockEntity;
+import me.reimnop.fabricseats.entity.SeatEntity;
+import net.minecraft.block.BlockRenderType;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockWithEntity;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.LiteralText;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
+
+public class SeatBlock extends BlockWithEntity {
+    public SeatBlock(Settings settings) {
+        super(settings);
+    }
+
+    @Override
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        if (world.isClient) {
+            return ActionResult.CONSUME;
+        }
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        if (!(blockEntity instanceof SeatBlockEntity seatBlockEntity)) {
+            return ActionResult.FAIL;
+        }
+        SeatEntity seatEntity = seatBlockEntity.getSeatEntity((ServerWorld) world);
+        // Check if seatEntity is already spawned, if it isn't, spawn it
+        if (seatEntity == null) {
+            seatEntity = new SeatEntity(world, pos.getX() + 0.5, pos.getY() + 0.75, pos.getZ() + 0.5);
+            if (world.spawnEntity(seatEntity)) {
+                seatBlockEntity.setSeatEntity(seatEntity);
+            } else {
+                return ActionResult.FAIL;
+            }
+        }
+        // Ride the seat entity only if there isn't another player riding
+        if (!seatEntity.hasPassengers()) {
+            player.startRiding(seatEntity);
+        } else if (seatEntity.getFirstPassenger() != player) {
+            player.sendMessage(new LiteralText("This seat is occupied"), true);
+        }
+        return ActionResult.SUCCESS;
+    }
+
+    @Override
+    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+        super.onBreak(world, pos, state, player);
+        if (world.isClient()) {
+            return;
+        }
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        if (!(blockEntity instanceof SeatBlockEntity seatBlockEntity)) {
+            return;
+        }
+        ServerWorld serverWorld = (ServerWorld) world;
+        SeatEntity seatEntity = seatBlockEntity.getSeatEntity(serverWorld);
+        if (seatEntity != null) {
+            seatEntity.kill();
+        }
+    }
+
+    @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
+    }
+
+    @Override
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new SeatBlockEntity(pos, state);
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        return checkType(type, FabricSeats.SEAT_BLOCK_ENTITY, SeatBlockEntity::tick);
+    }
+}
