@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "fabricseats:chair",
+    "fabricseats:bench_left",
+    "fabricseats:bench_mid",
+    "fabricseats:bench_right"
+  ]
+}

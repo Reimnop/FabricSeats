@@ -4,11 +4,11 @@
   "version": "${version}",
 
   "name": "Fabric Seats",
-  "description": "Adds seats",
+  "description": "Chairs and benches for Minecraft.",
   "authors": [
     "Reimnop"
   ],
-  "license": "CC0-1.0",
+  "license": "MIT",
   "icon": "assets/fabricseats/icon.png",
 
   "environment": "*",
