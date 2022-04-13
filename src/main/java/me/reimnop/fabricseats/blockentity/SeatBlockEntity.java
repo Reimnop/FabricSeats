@@ -1,6 +1,7 @@
 package me.reimnop.fabricseats.blockentity;
 
 import me.reimnop.fabricseats.FabricSeats;
+import me.reimnop.fabricseats.block.AbstractSeatBlock;
 import me.reimnop.fabricseats.entity.SeatEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -8,6 +9,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -21,14 +23,18 @@ public class SeatBlockEntity extends BlockEntity {
         super(FabricSeats.SEAT_BLOCK_ENTITY, pos, state);
     }
 
-    public static void tick(World world, BlockPos pos, BlockState state, SeatBlockEntity be) {
+    public static void tick(World world, BlockPos pos, BlockState state, SeatBlockEntity be, AbstractSeatBlock asb) {
         if (world.isClient) {
             return;
         }
 
         SeatEntity seatEntity = be.getSeatEntity((ServerWorld) world);
         if (seatEntity != null) {
-            seatEntity.setPosition(pos.getX() + 0.5, pos.getY() + 0.75, pos.getZ() + 0.5);
+            Vec3d offset = asb.getSitOffset();
+            seatEntity.setPosition(
+                    pos.getX() + offset.getX(),
+                    pos.getY() + offset.getY(),
+                    pos.getZ() + offset.getZ());
             seatEntity.setSeatPos(pos);
         }
     }

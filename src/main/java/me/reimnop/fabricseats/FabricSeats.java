@@ -1,6 +1,7 @@
 package me.reimnop.fabricseats;
 
-import me.reimnop.fabricseats.block.SeatBlock;
+import me.reimnop.fabricseats.block.AbstractSeatBlock;
+import me.reimnop.fabricseats.block.GenericSeatBlock;
 import me.reimnop.fabricseats.blockentity.SeatBlockEntity;
 import me.reimnop.fabricseats.entity.SeatEntity;
 import net.fabricmc.api.ModInitializer;
@@ -24,8 +25,8 @@ public class FabricSeats implements ModInitializer {
 
 	public static final Logger LOGGER = LoggerFactory.getLogger(MODID);
 
-	public static SeatBlock SEAT_BLOCK = new SeatBlock(FabricBlockSettings.of(Material.WOOD).strength(4.0f));
-	public static BlockItem SEAT_BLOCK_ITEM = new BlockItem(SEAT_BLOCK, new FabricItemSettings().group(ItemGroup.DECORATIONS));
+	public static GenericSeatBlock GENERIC_SEAT_BLOCK = new GenericSeatBlock(FabricBlockSettings.of(Material.WOOD).strength(4.0f));
+	public static BlockItem GENERIC_SEAT_BLOCK_ITEM = new BlockItem(GENERIC_SEAT_BLOCK, new FabricItemSettings().group(ItemGroup.DECORATIONS));
 	public static EntityType<SeatEntity> SEAT_ENTITY;
 	public static BlockEntityType<SeatBlockEntity> SEAT_BLOCK_ENTITY;
 
@@ -33,8 +34,8 @@ public class FabricSeats implements ModInitializer {
 	public void onInitialize() {
 		LOGGER.info("Hello world!");
 
-		Registry.register(Registry.BLOCK, Utils.id("seat"), SEAT_BLOCK);
-		Registry.register(Registry.ITEM, Utils.id("seat"), SEAT_BLOCK_ITEM);
+		Registry.register(Registry.BLOCK, Utils.id("generic_seat"), GENERIC_SEAT_BLOCK);
+		Registry.register(Registry.ITEM, Utils.id("generic_seat"), GENERIC_SEAT_BLOCK_ITEM);
 
 		// ????
 		SEAT_ENTITY = (EntityType<SeatEntity>) (Object) Registry.register(
@@ -47,7 +48,7 @@ public class FabricSeats implements ModInitializer {
 
 		SEAT_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, Utils.id("seat"),
 				FabricBlockEntityTypeBuilder
-						.create(SeatBlockEntity::new, SEAT_BLOCK)
+						.create(SeatBlockEntity::new, GENERIC_SEAT_BLOCK)
 						.build());
 	}
 }

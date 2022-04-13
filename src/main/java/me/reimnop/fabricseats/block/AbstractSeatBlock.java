@@ -16,11 +16,12 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
-public class SeatBlock extends BlockWithEntity {
-    public SeatBlock(Settings settings) {
+public abstract class AbstractSeatBlock extends BlockWithEntity {
+    public AbstractSeatBlock(Settings settings) {
         super(settings);
     }
 
@@ -36,7 +37,11 @@ public class SeatBlock extends BlockWithEntity {
         SeatEntity seatEntity = seatBlockEntity.getSeatEntity((ServerWorld) world);
         // Check if seatEntity is already spawned, if it isn't, spawn it
         if (seatEntity == null) {
-            seatEntity = new SeatEntity(world, pos.getX() + 0.5, pos.getY() + 0.75, pos.getZ() + 0.5);
+            Vec3d offset = getSitOffset();
+            seatEntity = new SeatEntity(world,
+                    pos.getX() + offset.getX(),
+                    pos.getY() + offset.getY(),
+                    pos.getZ() + offset.getZ());
             if (world.spawnEntity(seatEntity)) {
                 seatBlockEntity.setSeatEntity(seatEntity);
             } else {
@@ -82,6 +87,8 @@ public class SeatBlock extends BlockWithEntity {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return checkType(type, FabricSeats.SEAT_BLOCK_ENTITY, SeatBlockEntity::tick);
+        return checkType(type, FabricSeats.SEAT_BLOCK_ENTITY, (w, p, s, be) -> SeatBlockEntity.tick(w, p, s, be, this));
     }
+
+    public abstract Vec3d getSitOffset();
 }
