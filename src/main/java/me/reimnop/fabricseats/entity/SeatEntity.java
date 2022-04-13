@@ -5,11 +5,13 @@ import me.reimnop.fabricseats.blockentity.SeatBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.network.packet.s2c.play.EntitySpawnS2CPacket;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class SeatEntity extends Entity {
@@ -36,6 +38,11 @@ public class SeatEntity extends Entity {
         setNoGravity(true);
         setInvulnerable(true);
         setInvisible(true);
+    }
+
+    @Override
+    public double getMountedHeightOffset() {
+        return -0.25;
     }
 
     public void setSeatPos(BlockPos pos) {
