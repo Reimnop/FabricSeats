@@ -1,5 +1,6 @@
 package me.reimnop.fabricseats;
 
+import me.reimnop.fabricseats.block.ChairBlock;
 import me.reimnop.fabricseats.block.SlabSeatBlock;
 import me.reimnop.fabricseats.blockentity.SeatBlockEntity;
 import me.reimnop.fabricseats.entity.SeatEntity;
@@ -31,6 +32,12 @@ public class FabricSeats implements ModInitializer {
 			.strength(4.0f));
 	public static BlockItem SLAB_SEAT_BLOCK_ITEM = new BlockItem(SLAB_SEAT_BLOCK, new FabricItemSettings().group(ItemGroup.DECORATIONS));
 
+	public static ChairBlock CHAIR_BLOCK = new ChairBlock(FabricBlockSettings
+			.of(Material.WOOD)
+			.sounds(BlockSoundGroup.WOOD)
+			.strength(4.0f));
+	public static BlockItem CHAIR_BLOCK_ITEM = new BlockItem(CHAIR_BLOCK, new FabricItemSettings().group(ItemGroup.DECORATIONS));
+
 	public static EntityType<SeatEntity> SEAT_ENTITY;
 	public static BlockEntityType<SeatBlockEntity> SEAT_BLOCK_ENTITY;
 
@@ -40,6 +47,9 @@ public class FabricSeats implements ModInitializer {
 
 		Registry.register(Registry.BLOCK, Utils.id("slab_seat"), SLAB_SEAT_BLOCK);
 		Registry.register(Registry.ITEM, Utils.id("slab_seat"), SLAB_SEAT_BLOCK_ITEM);
+
+		Registry.register(Registry.BLOCK, Utils.id("chair"), CHAIR_BLOCK);
+		Registry.register(Registry.ITEM, Utils.id("chair"), CHAIR_BLOCK_ITEM);
 
 		// ????
 		SEAT_ENTITY = (EntityType<SeatEntity>) (Object) Registry.register(
@@ -52,7 +62,7 @@ public class FabricSeats implements ModInitializer {
 
 		SEAT_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, Utils.id("seat"),
 				FabricBlockEntityTypeBuilder
-						.create(SeatBlockEntity::new, SLAB_SEAT_BLOCK)
+						.create(SeatBlockEntity::new, SLAB_SEAT_BLOCK, CHAIR_BLOCK)
 						.build());
 	}
 }
