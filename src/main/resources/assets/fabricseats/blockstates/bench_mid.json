@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "fabricseats:block/bench_mid", "uvlock": false },
+    "facing=east":  { "model": "fabricseats:block/bench_mid", "y":  90, "uvlock": false },
+    "facing=south": { "model": "fabricseats:block/bench_mid", "y": 180, "uvlock": false },
+    "facing=west":  { "model": "fabricseats:block/bench_mid", "y": 270, "uvlock": false }
+  }
+}

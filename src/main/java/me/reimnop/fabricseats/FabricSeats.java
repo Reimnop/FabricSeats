@@ -1,7 +1,6 @@
 package me.reimnop.fabricseats;
 
-import me.reimnop.fabricseats.block.ChairBlock;
-import me.reimnop.fabricseats.block.SlabSeatBlock;
+import me.reimnop.fabricseats.block.*;
 import me.reimnop.fabricseats.blockentity.SeatBlockEntity;
 import me.reimnop.fabricseats.entity.SeatEntity;
 import net.fabricmc.api.ModInitializer;
@@ -38,6 +37,26 @@ public class FabricSeats implements ModInitializer {
 			.strength(4.0f));
 	public static BlockItem CHAIR_BLOCK_ITEM = new BlockItem(CHAIR_BLOCK, new FabricItemSettings().group(ItemGroup.DECORATIONS));
 
+	// BENCHES
+	public static BenchLeftBlock BENCH_LEFT_BLOCK = new BenchLeftBlock(FabricBlockSettings
+			.of(Material.WOOD)
+			.sounds(BlockSoundGroup.WOOD)
+			.strength(4.0f));
+	public static BlockItem BENCH_LEFT_BLOCK_ITEM = new BlockItem(BENCH_LEFT_BLOCK, new FabricItemSettings().group(ItemGroup.DECORATIONS));
+
+	public static BenchMidBlock BENCH_MID_BLOCK = new BenchMidBlock(FabricBlockSettings
+			.of(Material.WOOD)
+			.sounds(BlockSoundGroup.WOOD)
+			.strength(4.0f));
+	public static BlockItem BENCH_MID_BLOCK_ITEM = new BlockItem(BENCH_MID_BLOCK, new FabricItemSettings().group(ItemGroup.DECORATIONS));
+
+	public static BenchRightBlock BENCH_RIGHT_BLOCK = new BenchRightBlock(FabricBlockSettings
+			.of(Material.WOOD)
+			.sounds(BlockSoundGroup.WOOD)
+			.strength(4.0f));
+	public static BlockItem BENCH_RIGHT_BLOCK_ITEM = new BlockItem(BENCH_RIGHT_BLOCK, new FabricItemSettings().group(ItemGroup.DECORATIONS));
+	// END BENCHES
+
 	public static EntityType<SeatEntity> SEAT_ENTITY;
 	public static BlockEntityType<SeatBlockEntity> SEAT_BLOCK_ENTITY;
 
@@ -51,6 +70,17 @@ public class FabricSeats implements ModInitializer {
 		Registry.register(Registry.BLOCK, Utils.id("chair"), CHAIR_BLOCK);
 		Registry.register(Registry.ITEM, Utils.id("chair"), CHAIR_BLOCK_ITEM);
 
+		// BENCHES
+		Registry.register(Registry.BLOCK, Utils.id("bench_left"), BENCH_LEFT_BLOCK);
+		Registry.register(Registry.ITEM, Utils.id("bench_left"), BENCH_LEFT_BLOCK_ITEM);
+
+		Registry.register(Registry.BLOCK, Utils.id("bench_mid"), BENCH_MID_BLOCK);
+		Registry.register(Registry.ITEM, Utils.id("bench_mid"), BENCH_MID_BLOCK_ITEM);
+
+		Registry.register(Registry.BLOCK, Utils.id("bench_right"), BENCH_RIGHT_BLOCK);
+		Registry.register(Registry.ITEM, Utils.id("bench_right"), BENCH_RIGHT_BLOCK_ITEM);
+		// END BENCHES
+
 		// ????
 		SEAT_ENTITY = (EntityType<SeatEntity>) (Object) Registry.register(
 				Registry.ENTITY_TYPE,
@@ -62,7 +92,7 @@ public class FabricSeats implements ModInitializer {
 
 		SEAT_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, Utils.id("seat"),
 				FabricBlockEntityTypeBuilder
-						.create(SeatBlockEntity::new, SLAB_SEAT_BLOCK, CHAIR_BLOCK)
+						.create(SeatBlockEntity::new, SLAB_SEAT_BLOCK, CHAIR_BLOCK, BENCH_LEFT_BLOCK, BENCH_MID_BLOCK, BENCH_RIGHT_BLOCK)
 						.build());
 	}
 }
