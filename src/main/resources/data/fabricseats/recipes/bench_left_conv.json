@@ -2,11 +2,11 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "fabricseats:bench_left"
+      "item": "fabricseats:bench_right"
     }
   ],
   "result": {
-    "item": "fabricseats:bench_right",
+    "item": "fabricseats:bench_left",
     "count": 1
   }
 }
