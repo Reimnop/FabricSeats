@@ -25,30 +25,25 @@ public class FabricSeats implements ModInitializer {
 
 	public static final Logger LOGGER = LoggerFactory.getLogger(MODID);
 
-	public static ChairBlock CHAIR_BLOCK = new ChairBlock(FabricBlockSettings
+	private static final FabricBlockSettings SEAT_BLOCK_SETTINGS = FabricBlockSettings
 			.of(Material.WOOD)
 			.sounds(BlockSoundGroup.WOOD)
-			.hardness(2.0f));
-	public static BlockItem CHAIR_BLOCK_ITEM = new BlockItem(CHAIR_BLOCK, new FabricItemSettings().group(ItemGroup.DECORATIONS));
+			.hardness(2.0f);
+	public static final FabricItemSettings SEAT_BLOCK_ITEM_SETTINGS = new FabricItemSettings()
+			.group(ItemGroup.DECORATIONS);
+
+	public static ChairBlock CHAIR_BLOCK = new ChairBlock(SEAT_BLOCK_SETTINGS);
+	public static BlockItem CHAIR_BLOCK_ITEM = new BlockItem(CHAIR_BLOCK, SEAT_BLOCK_ITEM_SETTINGS);
 
 	// BENCHES
-	public static BenchLeftBlock BENCH_LEFT_BLOCK = new BenchLeftBlock(FabricBlockSettings
-			.of(Material.WOOD)
-			.sounds(BlockSoundGroup.WOOD)
-			.hardness(2.0f));
-	public static BlockItem BENCH_LEFT_BLOCK_ITEM = new BlockItem(BENCH_LEFT_BLOCK, new FabricItemSettings().group(ItemGroup.DECORATIONS));
+	public static BenchLeftBlock BENCH_LEFT_BLOCK = new BenchLeftBlock(SEAT_BLOCK_SETTINGS);
+	public static BlockItem BENCH_LEFT_BLOCK_ITEM = new BlockItem(BENCH_LEFT_BLOCK, SEAT_BLOCK_ITEM_SETTINGS);
 
-	public static BenchMidBlock BENCH_MID_BLOCK = new BenchMidBlock(FabricBlockSettings
-			.of(Material.WOOD)
-			.sounds(BlockSoundGroup.WOOD)
-			.hardness(2.0f));
-	public static BlockItem BENCH_MID_BLOCK_ITEM = new BlockItem(BENCH_MID_BLOCK, new FabricItemSettings().group(ItemGroup.DECORATIONS));
+	public static BenchMidBlock BENCH_MID_BLOCK = new BenchMidBlock(SEAT_BLOCK_SETTINGS);
+	public static BlockItem BENCH_MID_BLOCK_ITEM = new BlockItem(BENCH_MID_BLOCK, SEAT_BLOCK_ITEM_SETTINGS);
 
-	public static BenchRightBlock BENCH_RIGHT_BLOCK = new BenchRightBlock(FabricBlockSettings
-			.of(Material.WOOD)
-			.sounds(BlockSoundGroup.WOOD)
-			.hardness(2.0f));
-	public static BlockItem BENCH_RIGHT_BLOCK_ITEM = new BlockItem(BENCH_RIGHT_BLOCK, new FabricItemSettings().group(ItemGroup.DECORATIONS));
+	public static BenchRightBlock BENCH_RIGHT_BLOCK = new BenchRightBlock(SEAT_BLOCK_SETTINGS);
+	public static BlockItem BENCH_RIGHT_BLOCK_ITEM = new BlockItem(BENCH_RIGHT_BLOCK, SEAT_BLOCK_ITEM_SETTINGS);
 	// END BENCHES
 
 	public static EntityType<SeatEntity> SEAT_ENTITY;
