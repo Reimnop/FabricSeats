@@ -1,5 +1,6 @@
 package me.reimnop.fabricseats.block;
 
+import me.reimnop.fabricseats.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
@@ -49,6 +50,10 @@ public class BenchMidBlock extends AbstractSeatBlock {
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        return VoxelShapes.cuboid(0.0f, 6.0f / 16.0f, 0.0f, 1.0f, 8.0f / 16.0f, 1.0f);
+        Direction direction = state.get(FACING);
+
+        VoxelShape seat = VoxelShapes.cuboid(0.0, 6.0 / 16.0, 0.0, 1.0, 8.0 / 16.0, 1.0);
+        VoxelShape back = Utils.rotatedCuboid(direction, 0.0, 8.0 / 16.0, 14.0 / 16.0, 1.0, 20.0 / 16.0, 1.0);
+        return VoxelShapes.union(seat, back);
     }
 }

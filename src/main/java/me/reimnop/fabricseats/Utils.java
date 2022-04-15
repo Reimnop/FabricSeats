@@ -31,10 +31,10 @@ public class Utils {
                 newXMin = xMin; newYMin = yMin; newZMin = zMin; newXMax = xMax; newYMax = yMax; newZMax = zMax;
                 break;
             case SOUTH:
-                newXMin = xMax; newYMin = yMin; newZMin = 1-zMin; newXMax = xMin; newYMax = yMax; newZMax = 1-zMax;
+                newXMin = 1-xMax; newYMin = yMin; newZMin = 1-zMin; newXMax = 1-xMin; newYMax = yMax; newZMax = 1-zMax;
                 break;
             case WEST:
-                newXMin = zMin; newYMin = yMin; newZMin = xMin; newXMax = zMax; newYMax = yMax; newZMax = xMax;
+                newXMin = zMin; newYMin = yMin; newZMin = 1-xMin; newXMax = zMax; newYMax = yMax; newZMax = 1-xMax;
                 break;
             case EAST:
                 newXMin = 1-zMin; newYMin = yMin; newZMin = xMin; newXMax = 1-zMax; newYMax = yMax; newZMax = xMax;
