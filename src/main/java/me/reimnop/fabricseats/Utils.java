@@ -25,22 +25,46 @@ public class Utils {
      * @return rotated VoxelShape
      */
     public static VoxelShape rotatedCuboid(Direction direction, double xMin, double yMin, double zMin, double xMax, double yMax, double zMax) {
-        double newXMin; double newYMin; double newZMin; double newXMax; double newYMax; double newZMax;
+        double newXMin;
+        double newYMin;
+        double newZMin;
+        double newXMax;
+        double newYMax;
+        double newZMax;
         switch (direction) {
-            case NORTH:
-                newXMin = xMin; newYMin = yMin; newZMin = zMin; newXMax = xMax; newYMax = yMax; newZMax = zMax;
-                break;
-            case SOUTH:
-                newXMin = 1-xMax; newYMin = yMin; newZMin = 1-zMin; newXMax = 1-xMin; newYMax = yMax; newZMax = 1-zMax;
-                break;
-            case WEST:
-                newXMin = zMin; newYMin = yMin; newZMin = 1-xMin; newXMax = zMax; newYMax = yMax; newZMax = 1-xMax;
-                break;
-            case EAST:
-                newXMin = 1-zMin; newYMin = yMin; newZMin = xMin; newXMax = 1-zMax; newYMax = yMax; newZMax = xMax;
-                break;
-            default:
-                throw new IllegalArgumentException("Incorrect direction argument.");
+            case NORTH -> {
+                newXMin = xMin;
+                newYMin = yMin;
+                newZMin = zMin;
+                newXMax = xMax;
+                newYMax = yMax;
+                newZMax = zMax;
+            }
+            case SOUTH -> {
+                newXMin = 1 - xMax;
+                newYMin = yMin;
+                newZMin = 1 - zMin;
+                newXMax = 1 - xMin;
+                newYMax = yMax;
+                newZMax = 1 - zMax;
+            }
+            case WEST -> {
+                newXMin = zMin;
+                newYMin = yMin;
+                newZMin = 1 - xMin;
+                newXMax = zMax;
+                newYMax = yMax;
+                newZMax = 1 - xMax;
+            }
+            case EAST -> {
+                newXMin = 1 - zMin;
+                newYMin = yMin;
+                newZMin = xMin;
+                newXMax = 1 - zMax;
+                newYMax = yMax;
+                newZMax = xMax;
+            }
+            default -> throw new IllegalArgumentException("Incorrect direction argument.");
         }
         if (newXMin > newXMax) {
             double temp = newXMax;
